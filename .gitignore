@@ -1,0 +1,13 @@
+# SQL*Plus Spool & Log files
+*.lst
+*.log
+*.out
+afiedt.buf
+
+# OS & Editor files
+.DS_Store
+Thumbs.db
+*.swp
+*~
+.vscode/
+.idea/
