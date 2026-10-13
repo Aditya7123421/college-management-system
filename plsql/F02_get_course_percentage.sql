@@ -20,6 +20,42 @@
 --
 -- Purity:
 --   DETERMINISTIC / Read-Only (does not modify database state).
+--
+-- ============================================================================
+-- HOW TO COMPILE, RUN & TEST
+-- ============================================================================
+-- 1. Compilation in SQL*Plus:
+--      @plsql/F02_get_course_percentage.sql
+--      SHOW ERRORS FUNCTION get_course_percentage;
+--
+-- 2. Execution syntax:
+--      -- Within SQL queries:
+--      SELECT get_course_percentage('STU001', 'CS101', 2025, 'Fall', 'ENDSEM') AS exam_pct FROM dual;
+--
+--      -- Within PL/SQL blocks:
+--      v_pct := get_course_percentage('STU001', 'CS101', 2025, 'Fall', 'ENDSEM');
+--
+-- 3. Testing Examples:
+--
+--    -- Test Case 1 (Success - Endsem):
+--    -- STU001 scored 92.00 / 100.00 in ENDSEM of CS101 2025 Fall
+--    SELECT get_course_percentage('STU001', 'CS101', 2025, 'Fall', 'ENDSEM') AS pct_endsem FROM dual;
+--    -- Expected Output: 92
+--
+--    -- Test Case 2 (Success - Midterm):
+--    -- STU001 scored 46.00 / 50.00 in MIDTERM of CS101 2025 Fall
+--    SELECT get_course_percentage('STU001', 'CS101', 2025, 'Fall', 'MIDTERM') AS pct_midterm FROM dual;
+--    -- Expected Output: 92
+--
+--    -- Test Case 3 (Missing Result - Expects ORA-20021):
+--    -- STU005 has no ENDSEM record in IT101 2025 Fall
+--    BEGIN
+--        DBMS_OUTPUT.PUT_LINE(get_course_percentage('STU005', 'IT101', 2025, 'Fall', 'ENDSEM'));
+--    EXCEPTION
+--        WHEN OTHERS THEN
+--            DBMS_OUTPUT.PUT_LINE('Expected Error (-20021): ' || SQLERRM);
+--    END;
+--    /
 -- ============================================================================
 
 CREATE OR REPLACE FUNCTION get_course_percentage (

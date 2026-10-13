@@ -20,6 +20,67 @@
 --   3. Reject duplicate attendance record for the same student, offering, and date.
 --   4. Insert attendance record into ATTENDANCE table.
 --   5. Transaction control is left to the caller (no COMMIT or ROLLBACK).
+--
+-- ============================================================================
+-- HOW TO COMPILE, RUN & TEST
+-- ============================================================================
+-- 1. Compilation in SQL*Plus:
+--      @plsql/P02_record_attendance.sql
+--      SHOW ERRORS PROCEDURE record_attendance;
+--
+-- 2. Execution syntax:
+--      EXEC record_attendance('STU001', 'CS101', 2025, 'Fall', TO_DATE('2025-09-25', 'YYYY-MM-DD'), 'PRESENT');
+--      COMMIT; -- or ROLLBACK;
+--
+-- 3. Testing Examples:
+--
+--    -- Test Case 1 (Success): Record valid attendance on a new date for enrolled student STU001
+--    BEGIN
+--        record_attendance('STU001', 'CS101', 2025, 'Fall', TO_DATE('2025-09-25', 'YYYY-MM-DD'), 'PRESENT');
+--        DBMS_OUTPUT.PUT_LINE('Success: Attendance recorded for STU001 on 2025-09-25.');
+--        ROLLBACK; -- rollback test data
+--    END;
+--    /
+--
+--    -- Test Case 2 (Duplicate Attendance - Expects ORA-20014):
+--    -- Attendance on 2025-08-10 already exists for STU001 in CS101 2025 Fall
+--    BEGIN
+--        record_attendance('STU001', 'CS101', 2025, 'Fall', TO_DATE('2025-08-10', 'YYYY-MM-DD'), 'PRESENT');
+--    EXCEPTION
+--        WHEN OTHERS THEN
+--            DBMS_OUTPUT.PUT_LINE('Expected Error (-20014): ' || SQLERRM);
+--    END;
+--    /
+--
+--    -- Test Case 3 (Invalid Status - Expects ORA-20011):
+--    -- Status must be PRESENT, ABSENT, or LATE (not EXCUSED)
+--    BEGIN
+--        record_attendance('STU001', 'CS101', 2025, 'Fall', TO_DATE('2025-09-28', 'YYYY-MM-DD'), 'EXCUSED');
+--    EXCEPTION
+--        WHEN OTHERS THEN
+--            DBMS_OUTPUT.PUT_LINE('Expected Error (-20011): ' || SQLERRM);
+--    END;
+--    /
+--
+--    -- Test Case 4 (Not Enrolled - Expects ORA-20012):
+--    -- Student STU030 is not enrolled in CS101 2025 Fall
+--    BEGIN
+--        record_attendance('STU030', 'CS101', 2025, 'Fall', TO_DATE('2025-09-28', 'YYYY-MM-DD'), 'PRESENT');
+--    EXCEPTION
+--        WHEN OTHERS THEN
+--            DBMS_OUTPUT.PUT_LINE('Expected Error (-20012): ' || SQLERRM);
+--    END;
+--    /
+--
+--    -- Test Case 5 (Dropped Student - Expects ORA-20013):
+--    -- Student STU005 has status DROPPED in CS101 2025 Fall
+--    BEGIN
+--        record_attendance('STU005', 'CS101', 2025, 'Fall', TO_DATE('2025-09-28', 'YYYY-MM-DD'), 'PRESENT');
+--    EXCEPTION
+--        WHEN OTHERS THEN
+--            DBMS_OUTPUT.PUT_LINE('Expected Error (-20013): ' || SQLERRM);
+--    END;
+--    /
 -- ============================================================================
 
 CREATE OR REPLACE PROCEDURE record_attendance (

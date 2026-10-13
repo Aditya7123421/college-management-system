@@ -11,16 +11,37 @@
 --   &academic_year : Academic year (e.g., 2026)
 --   &semester      : Term identifier ('Fall', 'Winter', 'Summer')
 --
--- Execution Examples in SQL*Plus:
---   Option A (Interactive Prompt):
---     @plsql/C01_student_attendance_report.sql
---     (SQL*Plus will prompt for course_code, academic_year, and semester)
+-- ============================================================================
+-- HOW TO RUN & TEST
+-- ============================================================================
+-- 1. How to Run:
 --
---   Option B (Pre-defined Variables):
---     DEFINE course_code = 'CS101';
---     DEFINE academic_year = 2026;
---     DEFINE semester = 'Fall';
---     @plsql/C01_student_attendance_report.sql
+--    -- Option A: Pre-defining variables and executing:
+--    DEFINE course_code = 'CS101';
+--    DEFINE academic_year = 2026;
+--    DEFINE semester = 'Fall';
+--    @plsql/C01_student_attendance_report.sql
+--
+--    -- Option B: Interactive prompt:
+--    UNDEFINE course_code academic_year semester;
+--    @plsql/C01_student_attendance_report.sql
+--    -- (SQL*Plus will prompt interactively for course_code, academic_year, and semester)
+--
+-- 2. Testing Examples:
+--
+--    -- Test Case 1 (Offering with active ENROLLED students):
+--    DEFINE course_code = 'CS101';
+--    DEFINE academic_year = 2026;
+--    DEFINE semester = 'Fall';
+--    @plsql/C01_student_attendance_report.sql
+--    -- Expected Output: Lists STU003 and STU006, reports total processed = 2
+--
+--    -- Test Case 2 (Offering with 0 ENROLLED students - e.g. COMPLETED/DROPPED):
+--    DEFINE course_code = 'CS101';
+--    DEFINE academic_year = 2025;
+--    DEFINE semester = 'Fall';
+--    @plsql/C01_student_attendance_report.sql
+--    -- Expected Output: "No currently ENROLLED students found for offering CS101 (2025 Fall)."
 -- ============================================================================
 
 SET SERVEROUTPUT ON SIZE 1000000

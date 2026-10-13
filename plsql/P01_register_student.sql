@@ -22,6 +22,66 @@
 --   6. Reject enrollment if offering is at capacity (occupied >= max_seats).
 --   7. Insert enrollment record with status 'ENROLLED' and SYSDATE.
 --   8. Transaction control is left to the caller (no COMMIT or ROLLBACK).
+--
+-- ============================================================================
+-- HOW TO COMPILE, RUN & TEST
+-- ============================================================================
+-- 1. Compilation in SQL*Plus:
+--      @plsql/P01_register_student.sql
+--      SHOW ERRORS PROCEDURE register_student;
+--
+-- 2. Execution syntax:
+--      EXEC register_student('STU007', 'CS101', 2026, 'Fall');
+--      COMMIT; -- or ROLLBACK;
+--
+-- 3. Testing Examples:
+--
+--    -- Test Case 1 (Success): Enroll active student STU007 in offering with open seats
+--    BEGIN
+--        register_student('STU007', 'CS101', 2026, 'Fall');
+--        DBMS_OUTPUT.PUT_LINE('Success: STU007 enrolled in CS101 2026 Fall.');
+--        ROLLBACK; -- rollback test data
+--    END;
+--    /
+--
+--    -- Test Case 2 (Duplicate Enrollment - Expects ORA-20004):
+--    -- Student STU003 is already enrolled in CS101 2026 Fall
+--    BEGIN
+--        register_student('STU003', 'CS101', 2026, 'Fall');
+--    EXCEPTION
+--        WHEN OTHERS THEN
+--            DBMS_OUTPUT.PUT_LINE('Expected Error (-20004): ' || SQLERRM);
+--    END;
+--    /
+--
+--    -- Test Case 3 (Full Offering - Expects ORA-20005):
+--    -- Offering CS101 2025 Fall is at maximum capacity (3/3 occupied)
+--    BEGIN
+--        register_student('STU007', 'CS101', 2025, 'Fall');
+--    EXCEPTION
+--        WHEN OTHERS THEN
+--            DBMS_OUTPUT.PUT_LINE('Expected Error (-20005): ' || SQLERRM);
+--    END;
+--    /
+--
+--    -- Test Case 4 (Inactive Student - Expects ORA-20002):
+--    -- Student STU028 has status INACTIVE
+--    BEGIN
+--        register_student('STU028', 'CS101', 2026, 'Fall');
+--    EXCEPTION
+--        WHEN OTHERS THEN
+--            DBMS_OUTPUT.PUT_LINE('Expected Error (-20002): ' || SQLERRM);
+--    END;
+--    /
+--
+--    -- Test Case 5 (Non-existent Student - Expects ORA-20001):
+--    BEGIN
+--        register_student('STU999', 'CS101', 2026, 'Fall');
+--    EXCEPTION
+--        WHEN OTHERS THEN
+--            DBMS_OUTPUT.PUT_LINE('Expected Error (-20001): ' || SQLERRM);
+--    END;
+--    /
 -- ============================================================================
 
 CREATE OR REPLACE PROCEDURE register_student (

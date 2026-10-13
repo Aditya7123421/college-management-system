@@ -17,6 +17,37 @@
 --
 -- Purity:
 --   DETERMINISTIC / Read-Only (does not modify database state).
+--
+-- ============================================================================
+-- HOW TO COMPILE, RUN & TEST
+-- ============================================================================
+-- 1. Compilation in SQL*Plus:
+--      @plsql/F01_get_attendance_percentage.sql
+--      SHOW ERRORS FUNCTION get_attendance_percentage;
+--
+-- 2. Execution syntax:
+--      -- Within SQL queries:
+--      SELECT get_attendance_percentage('STU001', 'CS101', 2025, 'Fall') AS attd_pct FROM dual;
+--
+--      -- Within PL/SQL blocks:
+--      v_pct := get_attendance_percentage('STU001', 'CS101', 2025, 'Fall');
+--
+-- 3. Testing Examples:
+--
+--    -- Test Case 1 (100% Attendance):
+--    -- Student STU001 attended all 5 sessions in CS101 2025 Fall
+--    SELECT get_attendance_percentage('STU001', 'CS101', 2025, 'Fall') AS pct_stu001 FROM dual;
+--    -- Expected Output: 100
+--
+--    -- Test Case 2 (60% Attendance):
+--    -- Student STU002 attended 3 of 5 sessions in CS101 2025 Fall (2 ABSENT)
+--    SELECT get_attendance_percentage('STU002', 'CS101', 2025, 'Fall') AS pct_stu002 FROM dual;
+--    -- Expected Output: 60
+--
+--    -- Test Case 3 (Zero Records -> Returns 0):
+--    -- Student STU003 in CS101 2026 Fall has no recorded sessions yet
+--    SELECT get_attendance_percentage('STU003', 'CS101', 2026, 'Fall') AS pct_stu003 FROM dual;
+--    -- Expected Output: 0
 -- ============================================================================
 
 CREATE OR REPLACE FUNCTION get_attendance_percentage (
