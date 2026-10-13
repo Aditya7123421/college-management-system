@@ -460,12 +460,16 @@ VALUES ('STU021', 'CHEM101', 2026, 'Fall', TO_DATE('2026-07-21', 'YYYY-MM-DD'), 
 INSERT INTO enrollment (reg_no, course_code, academic_year, semester, enrollment_date, status)
 VALUES ('STU020', 'CHEM101', 2026, 'Fall', TO_DATE('2026-07-22', 'YYYY-MM-DD'), 'DROPPED');
 
--- BIO101 (2025 Fall): Capacity 4. Occupied: 2.
+-- BIO101 (2025 Fall): Capacity 4. Occupied: 3.
 INSERT INTO enrollment (reg_no, course_code, academic_year, semester, enrollment_date, status)
 VALUES ('STU022', 'BIO101', 2025, 'Fall', TO_DATE('2025-07-20', 'YYYY-MM-DD'), 'COMPLETED');
 
 INSERT INTO enrollment (reg_no, course_code, academic_year, semester, enrollment_date, status)
 VALUES ('STU023', 'BIO101', 2025, 'Fall', TO_DATE('2025-07-21', 'YYYY-MM-DD'), 'COMPLETED');
+
+-- Graduated student STU024 completed BIO101 in 2025
+INSERT INTO enrollment (reg_no, course_code, academic_year, semester, enrollment_date, status)
+VALUES ('STU024', 'BIO101', 2025, 'Fall', TO_DATE('2025-07-21', 'YYYY-MM-DD'), 'COMPLETED');
 
 -- BIO101 (2026 Fall): Capacity 4. Occupied: 2.
 INSERT INTO enrollment (reg_no, course_code, academic_year, semester, enrollment_date, status)
@@ -491,12 +495,19 @@ VALUES ('STU026', 'MATH101', 2026, 'Fall', TO_DATE('2026-07-18', 'YYYY-MM-DD'), 
 INSERT INTO enrollment (reg_no, course_code, academic_year, semester, enrollment_date, status)
 VALUES ('STU027', 'MATH101', 2026, 'Fall', TO_DATE('2026-07-19', 'YYYY-MM-DD'), 'ENROLLED');
 
--- PHYS101 (2025 Fall): Capacity 4. Occupied: 2.
+-- PHYS101 (2025 Fall): Capacity 4. Occupied: 4 (Full capacity).
 INSERT INTO enrollment (reg_no, course_code, academic_year, semester, enrollment_date, status)
 VALUES ('STU010', 'PHYS101', 2025, 'Fall', TO_DATE('2025-07-20', 'YYYY-MM-DD'), 'COMPLETED');
 
 INSERT INTO enrollment (reg_no, course_code, academic_year, semester, enrollment_date, status)
 VALUES ('STU025', 'PHYS101', 2025, 'Fall', TO_DATE('2025-07-22', 'YYYY-MM-DD'), 'COMPLETED');
+
+-- Graduated students STU029 and STU030 completed PHYS101 in 2025
+INSERT INTO enrollment (reg_no, course_code, academic_year, semester, enrollment_date, status)
+VALUES ('STU029', 'PHYS101', 2025, 'Fall', TO_DATE('2025-07-20', 'YYYY-MM-DD'), 'COMPLETED');
+
+INSERT INTO enrollment (reg_no, course_code, academic_year, semester, enrollment_date, status)
+VALUES ('STU030', 'PHYS101', 2025, 'Fall', TO_DATE('2025-07-21', 'YYYY-MM-DD'), 'COMPLETED');
 
 -- PHYS101 (2026 Fall): Capacity 4. Occupied: 2.
 INSERT INTO enrollment (reg_no, course_code, academic_year, semester, enrollment_date, status)
@@ -757,6 +768,18 @@ VALUES ('STU023', 'BIO101', 2025, 'Fall', TO_DATE('2025-09-07', 'YYYY-MM-DD'), '
 INSERT INTO attendance (reg_no, course_code, academic_year, semester, attendance_date, status)
 VALUES ('STU023', 'BIO101', 2025, 'Fall', TO_DATE('2025-09-14', 'YYYY-MM-DD'), 'LATE');
 
+-- STU024 (Graduated Alumni - 5/5 = 100%)
+INSERT INTO attendance (reg_no, course_code, academic_year, semester, attendance_date, status)
+VALUES ('STU024', 'BIO101', 2025, 'Fall', TO_DATE('2025-08-17', 'YYYY-MM-DD'), 'PRESENT');
+INSERT INTO attendance (reg_no, course_code, academic_year, semester, attendance_date, status)
+VALUES ('STU024', 'BIO101', 2025, 'Fall', TO_DATE('2025-08-24', 'YYYY-MM-DD'), 'PRESENT');
+INSERT INTO attendance (reg_no, course_code, academic_year, semester, attendance_date, status)
+VALUES ('STU024', 'BIO101', 2025, 'Fall', TO_DATE('2025-08-31', 'YYYY-MM-DD'), 'PRESENT');
+INSERT INTO attendance (reg_no, course_code, academic_year, semester, attendance_date, status)
+VALUES ('STU024', 'BIO101', 2025, 'Fall', TO_DATE('2025-09-07', 'YYYY-MM-DD'), 'PRESENT');
+INSERT INTO attendance (reg_no, course_code, academic_year, semester, attendance_date, status)
+VALUES ('STU024', 'BIO101', 2025, 'Fall', TO_DATE('2025-09-14', 'YYYY-MM-DD'), 'PRESENT');
+
 -- MATH101 (2025 Fall)
 -- STU001 (5/5 = 100%)
 INSERT INTO attendance (reg_no, course_code, academic_year, semester, attendance_date, status)
@@ -818,6 +841,55 @@ INSERT INTO attendance (reg_no, course_code, academic_year, semester, attendance
 VALUES ('STU025', 'PHYS101', 2025, 'Fall', TO_DATE('2025-09-09', 'YYYY-MM-DD'), 'ABSENT');
 INSERT INTO attendance (reg_no, course_code, academic_year, semester, attendance_date, status)
 VALUES ('STU025', 'PHYS101', 2025, 'Fall', TO_DATE('2025-09-16', 'YYYY-MM-DD'), 'PRESENT');
+
+-- STU029 (Graduated Alumni - 5/5 = 100%)
+INSERT INTO attendance (reg_no, course_code, academic_year, semester, attendance_date, status)
+VALUES ('STU029', 'PHYS101', 2025, 'Fall', TO_DATE('2025-08-19', 'YYYY-MM-DD'), 'PRESENT');
+INSERT INTO attendance (reg_no, course_code, academic_year, semester, attendance_date, status)
+VALUES ('STU029', 'PHYS101', 2025, 'Fall', TO_DATE('2025-08-26', 'YYYY-MM-DD'), 'PRESENT');
+INSERT INTO attendance (reg_no, course_code, academic_year, semester, attendance_date, status)
+VALUES ('STU029', 'PHYS101', 2025, 'Fall', TO_DATE('2025-09-02', 'YYYY-MM-DD'), 'PRESENT');
+INSERT INTO attendance (reg_no, course_code, academic_year, semester, attendance_date, status)
+VALUES ('STU029', 'PHYS101', 2025, 'Fall', TO_DATE('2025-09-09', 'YYYY-MM-DD'), 'PRESENT');
+INSERT INTO attendance (reg_no, course_code, academic_year, semester, attendance_date, status)
+VALUES ('STU029', 'PHYS101', 2025, 'Fall', TO_DATE('2025-09-16', 'YYYY-MM-DD'), 'PRESENT');
+
+-- STU030 (Graduated Alumni - 4/5 = 80.0%)
+INSERT INTO attendance (reg_no, course_code, academic_year, semester, attendance_date, status)
+VALUES ('STU030', 'PHYS101', 2025, 'Fall', TO_DATE('2025-08-19', 'YYYY-MM-DD'), 'PRESENT');
+INSERT INTO attendance (reg_no, course_code, academic_year, semester, attendance_date, status)
+VALUES ('STU030', 'PHYS101', 2025, 'Fall', TO_DATE('2025-08-26', 'YYYY-MM-DD'), 'PRESENT');
+INSERT INTO attendance (reg_no, course_code, academic_year, semester, attendance_date, status)
+VALUES ('STU030', 'PHYS101', 2025, 'Fall', TO_DATE('2025-09-02', 'YYYY-MM-DD'), 'PRESENT');
+INSERT INTO attendance (reg_no, course_code, academic_year, semester, attendance_date, status)
+VALUES ('STU030', 'PHYS101', 2025, 'Fall', TO_DATE('2025-09-09', 'YYYY-MM-DD'), 'ABSENT');
+INSERT INTO attendance (reg_no, course_code, academic_year, semester, attendance_date, status)
+VALUES ('STU030', 'PHYS101', 2025, 'Fall', TO_DATE('2025-09-16', 'YYYY-MM-DD'), 'LATE');
+
+-- CS101 (2026 Fall) - Active Ongoing ENROLLED Students
+-- STU003 (4/5 = 80.0%)
+INSERT INTO attendance (reg_no, course_code, academic_year, semester, attendance_date, status)
+VALUES ('STU003', 'CS101', 2026, 'Fall', TO_DATE('2026-08-10', 'YYYY-MM-DD'), 'PRESENT');
+INSERT INTO attendance (reg_no, course_code, academic_year, semester, attendance_date, status)
+VALUES ('STU003', 'CS101', 2026, 'Fall', TO_DATE('2026-08-17', 'YYYY-MM-DD'), 'PRESENT');
+INSERT INTO attendance (reg_no, course_code, academic_year, semester, attendance_date, status)
+VALUES ('STU003', 'CS101', 2026, 'Fall', TO_DATE('2026-08-24', 'YYYY-MM-DD'), 'LATE');
+INSERT INTO attendance (reg_no, course_code, academic_year, semester, attendance_date, status)
+VALUES ('STU003', 'CS101', 2026, 'Fall', TO_DATE('2026-08-31', 'YYYY-MM-DD'), 'PRESENT');
+INSERT INTO attendance (reg_no, course_code, academic_year, semester, attendance_date, status)
+VALUES ('STU003', 'CS101', 2026, 'Fall', TO_DATE('2026-09-07', 'YYYY-MM-DD'), 'ABSENT');
+
+-- STU006 (5/5 = 100%)
+INSERT INTO attendance (reg_no, course_code, academic_year, semester, attendance_date, status)
+VALUES ('STU006', 'CS101', 2026, 'Fall', TO_DATE('2026-08-10', 'YYYY-MM-DD'), 'PRESENT');
+INSERT INTO attendance (reg_no, course_code, academic_year, semester, attendance_date, status)
+VALUES ('STU006', 'CS101', 2026, 'Fall', TO_DATE('2026-08-17', 'YYYY-MM-DD'), 'PRESENT');
+INSERT INTO attendance (reg_no, course_code, academic_year, semester, attendance_date, status)
+VALUES ('STU006', 'CS101', 2026, 'Fall', TO_DATE('2026-08-24', 'YYYY-MM-DD'), 'PRESENT');
+INSERT INTO attendance (reg_no, course_code, academic_year, semester, attendance_date, status)
+VALUES ('STU006', 'CS101', 2026, 'Fall', TO_DATE('2026-08-31', 'YYYY-MM-DD'), 'PRESENT');
+INSERT INTO attendance (reg_no, course_code, academic_year, semester, attendance_date, status)
+VALUES ('STU006', 'CS101', 2026, 'Fall', TO_DATE('2026-09-07', 'YYYY-MM-DD'), 'PRESENT');
 
 -- ----------------------------------------------------------------------------
 -- 9. RESULT (62 rows)

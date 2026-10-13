@@ -166,7 +166,7 @@ Each script in `queries/` is standalone and pre-configured with SQL\*Plus format
 
 | File | Object Name | Type | Summary & Error Codes |
 | :--- | :--- | :--- | :--- |
-| [`C01_student_attendance_report.sql`](plsql/C01_student_attendance_report.sql) | *(Anonymous Block)* | Explicit Cursor | Accepts `&course_code`, `&academic_year`, and `&semester`. Iterates over `ENROLLED` students, invokes `GET_ATTENDANCE_PERCENTAGE`, and outputs a formatted report via `DBMS_OUTPUT`. |
+| [`C01_student_attendance_report.sql`](plsql/C01_student_attendance_report.sql) | *(Anonymous Block)* | Explicit Cursor | Accepts `&course_code`, `&academic_year`, and `&semester`. Iterates over attendees (`ENROLLED` and `COMPLETED`, including `GRADUATED` alumni), invokes `GET_ATTENDANCE_PERCENTAGE`, and outputs a formatted report via `DBMS_OUTPUT`. |
 | [`T01_validate_student_dob.sql`](plsql/T01_validate_student_dob.sql) | `TRG_VALIDATE_STUDENT` | Trigger | `BEFORE INSERT OR UPDATE OF dob ON student FOR EACH ROW`. Rejects `:NEW.dob >= TRUNC(SYSDATE)` with `-20031`. |
 | [`T02_validate_result.sql`](plsql/T02_validate_result.sql) | `TRG_VALIDATE_RESULT` | Trigger | `BEFORE INSERT OR UPDATE ON result FOR EACH ROW`. Validates exam type (`-20041`), `max_marks > 0` (`-20042`), `marks >= 0` (`-20043`), and `marks <= max_marks` (`-20044`). |
 
@@ -193,7 +193,7 @@ UNION ALL SELECT 'RESULT', COUNT(*) FROM result;
 
 **Expected Row Counts:**
 - `DEPARTMENT`: 10 | `FACULTY`: 20 | `STUDENT`: 30 | `COURSE`: 10
-- `COURSE_OFFERING`: 20 | `ENROLLMENT`: 48 | `ATTENDANCE`: 125 | `RESULT`: 62
+- `COURSE_OFFERING`: 20 | `ENROLLMENT`: 51 | `ATTENDANCE`: 150 | `RESULT`: 62
 
 ### 5.2 Check PL/SQL Compilation Status
 
